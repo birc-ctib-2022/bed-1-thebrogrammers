@@ -3,6 +3,7 @@
 import argparse  # we use this module for option parsing. See main for details.
 
 import sys
+from tracemalloc import start
 from unicodedata import name
 from bed import (
 	BedLine, parse_line, print_line
@@ -36,11 +37,13 @@ def main() -> None:
 		table.add_line(parse_line(line))
 
 	for line in args.query:
-		chrom, start, stop = parse_line(line).split()
+		chrom, startstring, stopstring = line.split()
+		start = int(startstring)
+		stop = int(stopstring)
 		
 		for each in table.get_chrom(chrom):
-			if each.chrom_start >= start and each.chrom_end<stop:
-				print_line(BedLine(chrom,each.chrom_start,each.chrom_end,each.name),args.output)
+			if each.chrom_start >= start and each.chrom_end<=stop:
+				print_line(BedLine(chrom,each.chrom_start,each.chrom_end,each.name),args.outfile)
 
 
 
