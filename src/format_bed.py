@@ -31,6 +31,7 @@ def main() -> None:
 	# FIXME: put your code here
 	for line in args.infile:
 		print_line(parse_line(line), args.outfile)
+		
 
 
 if __name__ == '__main__':
