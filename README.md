@@ -66,8 +66,17 @@ When you have implemented the tool, answer the questions below, commit it to Git
 
 How does your method for extracting features work?
 
+A table is created from the bedfile, this table includes start, stop and features, sorted by chromosome. in the query we iterate through the queried chromosome and range and append features to the file in a BED format
+
+
 What is the complexity of the algorithm, as a function of the size of the two input files? When you answer this, you need to know that you can get the list of chromosomse from a `query.Table` in constant time, but it does, of course, take longer to run through all the lines in it.
+
+The algorithm is a function of the two input files and all else being constant time, thus it is O(n*m)
 
 Did you, at any point, exploit that our features are on single nucleotides and not larger regions?
 
+with single nucleotide features we do not need to handle overlaps and can thus just iterate line by line.
+
 If you did, what would it take to handle general regions?
+
+if we were to handle general regions we would need to handle cases where the feature overhangs the query and decide what to do in such a case. in such a case we would need to modify query_bed.py to handle these cases in the if-statement
